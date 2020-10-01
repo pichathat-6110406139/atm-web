@@ -18,6 +18,15 @@ public class Customer {
         this.pin = pin;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pin='" + pin + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
