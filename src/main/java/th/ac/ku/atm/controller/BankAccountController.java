@@ -27,7 +27,7 @@ public class BankAccountController {
     @PostMapping
     public String openAccount(@ModelAttribute BankAccount bankAccount, Model model) {
         accountService.openBankAccount(bankAccount);
-        model.addAttribute("bankaccounts",accountService.getBankAccounts());
+        model.addAttribute("bankaccounts", accountService.getBankAccounts());
         return "redirect:bankaccount";
     }
 
@@ -44,7 +44,7 @@ public class BankAccountController {
                               Model model) {
 
         accountService.editBankAccount(bankAccount);
-        model.addAttribute("bankaccounts",accountService.getBankAccounts());
+        model.addAttribute("bankaccounts", accountService.getBankAccounts());
         return "redirect:/bankaccount";
     }
 
@@ -64,6 +64,38 @@ public class BankAccountController {
         return "redirect:/bankaccount";
     }
 
+    @GetMapping("/deposit/{id}")
+    public String getDepositBankAccountPage(@PathVariable int id, Model model) {
+        BankAccount account = accountService.getBankAccount(id);
+        model.addAttribute("bankAccount", account);
+        return "bankaccount-deposit";
+    }
 
+    @PostMapping("/deposit/{id}")
+    public String depositBankAccount(@PathVariable int id,
+                              @ModelAttribute BankAccount bankAccount,
+                              Model model) {
+
+        accountService.depositAccount(bankAccount);
+        model.addAttribute("bankaccounts", accountService.getBankAccounts());
+        return "redirect:/bankaccount";
+    }
+
+    @GetMapping("/withdraw/{id}")
+    public String getWithdrawBankAccountPage(@PathVariable int id, Model model) {
+        BankAccount account = accountService.getBankAccount(id);
+        model.addAttribute("bankAccount", account);
+        return "bankaccount-withdraw";
+    }
+
+    @PostMapping("/withdraw/{id}")
+    public String withdrawBankAccount(@PathVariable int id,
+                                     @ModelAttribute BankAccount bankAccount,
+                                     Model model) {
+
+        accountService.withdrawAccount(bankAccount);
+        model.addAttribute("bankaccounts", accountService.getBankAccounts());
+        return "redirect:/bankaccount";
+    }
 }
 
